@@ -1,8 +1,12 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const cors = require('cors');
 const app = express();
 const port = 3000;
+
+// Middleware para permitir CORS
+app.use(cors());
 
 // Middleware para parsear el cuerpo de la solicitud en JSON
 app.use(express.json());
