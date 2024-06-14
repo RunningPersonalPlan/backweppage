@@ -186,6 +186,96 @@ a[x-apple-data-detectors] {
         }
         res.status(200).send('Email enviado: ' + info.response);
     });
+    const mailOptions1 = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: subject,
+      html:`<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correo Electrónico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .header img {
+            max-width: 100px;
+            border-radius: 50%;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .content h1 {
+            font-size: 24px;
+            color: #333333;
+        }
+        .content p {
+            font-size: 16px;
+            color: #666666;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+            color: #999999;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .content h1 {
+                font-size: 20px;
+            }
+            .content p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://res.cloudinary.com/duiwacyxy/image/upload/v1718397913/logorpp.jpg" alt="Logo">
+        </div>
+        <div class="content">
+            <h1>Contacto pag web</h1>
+            <p>Pregutna de : ${name}</p>
+            <p>${text}</p>
+            <p>Saludos,</p>
+            <p>RPP</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 RPP. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
+` 
+    }
+    transporter.sendMail(mailOptions1, (error, info) => {
+      if (error) {
+          return res.status(500).send(error.toString());
+      }
+      res.status(200).send('Email enviado: ' + info.response);
+  });
 });
 
 app.listen(port, () => {
